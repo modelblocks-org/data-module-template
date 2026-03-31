@@ -49,6 +49,6 @@ jobs:
         run: |
           gh issue --repo ${{ github.repository }} \
           create --title "Template update" \
-          --body "A new version of the template has been published. Please update this project using \`copier update --skip-answered --defaults\` and review changes. If you need help, refer to the \`clio\` documentation or reach out to the calliope project team."
+          --body "A new version of the template has been published. Please update this project using \`copier update --skip-answered --defaults\` and review changes. If you need help, refer to the Modelblocks documentation or reach out to the project team."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

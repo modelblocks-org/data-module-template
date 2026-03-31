@@ -3,7 +3,7 @@
 
 rule dummy_download:
     message:
-        "Download the clio README file."
+        "Download the ModelBlocks README file."
     params:
         url=internal["resources"]["automatic"]["dummy_readme"],
     output:

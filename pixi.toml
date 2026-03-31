@@ -1,12 +1,12 @@
 [project]
 name = "data-module-template"
 authors = ["See AUTHORS file"]
-description = "A template for `clio` data modules."
+description = "A template for Modelblocks data modules."
 license = "Apache-2.0"
 readme = "README.md"
 channels = ["conda-forge"]
 platforms = ["win-64", "linux-64", "osx-arm64"]
-homepage = "https://clio.readthedocs.io/"
+homepage = "https://www.modelblocks.org/"
 
 [dependencies]
 python = ">=3.12"
