@@ -66,12 +66,12 @@ github_org:
   type: str
   help: >-
     Please provide the name of the github account or organisation where
-    this module will be created (e.g., 'calliope-project' in 'github.com/calliope-project').
+    this module will be created (e.g., 'modelblocks-org' in 'github.com/modelblocks-org').
   validator: >-
     {% if not (github_org | regex_search('^[a-zA-Z0-9][a-zA-Z0-9-]*$')) %}
     "Only lowercase letters, digits, hyphens and underscores are valid."
     {% endif %}
-  default: "calliope-project"
+  default: "modelblocks-org"
 license:
   type: str
   help: "Please choose a license."
