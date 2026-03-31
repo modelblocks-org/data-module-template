@@ -21,7 +21,6 @@ _exclude:
 _skip_if_exists:
   # Respect user changes, except for a few standard files.
   - config/**
-  - docs/**
   - resources/**
   - results/**
   - tests/**

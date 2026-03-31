@@ -1,4 +1,4 @@
-[project]
+[workspace]
 name = "data-module-template"
 authors = ["See AUTHORS file"]
 description = "A template for Modelblocks data modules."
