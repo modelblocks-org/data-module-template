@@ -5,7 +5,7 @@ configfile: workflow.source_path("./test_config.yaml")
 rule create_external_input:
     message: "Example of a rule external to your module."
     output:
-        text_file = "results/integration_test/resources/user/user_message.md"
+        text_file = "resources/user/user_message.md"
     run:
         from pathlib import Path
         from textwrap import dedent
@@ -19,11 +19,21 @@ rule create_external_input:
 
 # Import the module and configure it.
 # `snakefile:` specifies the module. It can use file paths and special github(...) / gitlab(...) markers
-# `prefix:` re-routes all input/output paths of the module, helping to avoid file conflicts.
+# `config`: specifies the module configuration.
+# `pathvars:` helps you re-wire where the module places files.
 module {{module_short_name}}:
     snakefile: "../../workflow/Snakefile"
     config: config["{{module_short_name}}"]
-    prefix: "results/integration_test/"
+    pathvars:
+        # Redirect specific user resources (inputs)
+        user_message=rules.create_external_input.output.text_file,
+        # Redirect specific module results (outputs)
+        combined_text="results/output/combined_text.md",
+        # Redirect module internal files
+        logs="resources/{{module_short_name}}/logs",
+        resources="resources/{{module_short_name}}/resources",
+        results="results/{{module_short_name}}/results"
+
 
 # rename all module rules with a prefix, to avoid naming conflicts.
 use rule * from {{module_short_name}} as {{module_short_name}}_*
@@ -33,4 +43,4 @@ rule all:
     message: "A generic test case for your module."
     default_target: True
     input:
-        "results/integration_test/results/combined_text.md"
+        "results/output/combined_text.md"

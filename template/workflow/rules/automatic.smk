@@ -7,9 +7,9 @@ rule dummy_download:
     params:
         url=internal["resources"]["automatic"]["dummy_readme"],
     output:
-        readme="resources/automatic/dummy_readme.md",
+        readme="<resources>/automatic/dummy_readme.md",
     log:
-        "logs/dummy_download.log",
+        "<logs>/dummy_download.log",
     conda:
         "../envs/shell.yaml"
     shell:

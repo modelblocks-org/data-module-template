@@ -22,6 +22,7 @@ _skip_if_exists:
   # Respect user changes, except for a few standard files.
   - config/**
   - resources/**
+  - figures/**
   - results/**
   - tests/**
   - workflow/**
