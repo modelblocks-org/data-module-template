@@ -32,7 +32,7 @@ _skip_if_exists:
   - INTERFACE.yaml
   # Special cases: these files should not be user-modified, even though they are in user-modifiable directories
   - "!config/README.md"
-  - "!tests/clio_test.py"
+  - "!tests/integration_test.py"
 _templates_suffix: .jinja
 _answers_file: .copier-answers.yml
 
