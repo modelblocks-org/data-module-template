@@ -4,4 +4,4 @@ Other useful resources in this workflow are:
 
 - `INTERFACE.yaml`: lists module input and output files, and their default locations.
 - `workflow/internal/config.schema.yaml`: general configuration options.
-- `tests/integration/Snakefile`: a simple example of how to use this module.
+- `tests/integration/Snakefile`: a simple example of how to call this module from another workflow.
