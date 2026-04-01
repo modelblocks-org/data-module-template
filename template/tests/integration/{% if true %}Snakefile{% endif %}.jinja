@@ -29,10 +29,10 @@ module {{module_short_name}}:
         user_message=rules.create_external_input.output.text_file,
         # Redirect specific module results (outputs)
         combined_text="results/output/combined_text.md",
-        # Redirect module internal files
+        # Redirect intermediate files that are internal to the module
         logs="resources/{{module_short_name}}/logs",
         resources="resources/{{module_short_name}}/resources",
-        results="results/{{module_short_name}}/results"
+        results="resources/{{module_short_name}}/results"
 
 
 # rename all module rules with a prefix, to avoid naming conflicts.
