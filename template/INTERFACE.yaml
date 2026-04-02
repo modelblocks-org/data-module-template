@@ -1,4 +1,4 @@
-# Module Input-Output structure for automated doc. generation
+# Module Input-Output structure for automated docs generation
 pathvars:
   snakemake_defaults:
     logs:
