@@ -3,7 +3,7 @@
 
 rule dummy_download:
     message:
-        "Download the ModelBlocks README file."
+        "Download the Modelblocks README file."
     params:
         url=internal["resources"]["automatic"]["dummy_readme"],
     output:
