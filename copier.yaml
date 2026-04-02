@@ -21,8 +21,8 @@ _exclude:
 _skip_if_exists:
   # Respect user changes, except for a few standard files.
   - config/**
-  - docs/**
   - resources/**
+  - figures/**
   - results/**
   - tests/**
   - workflow/**
@@ -32,7 +32,7 @@ _skip_if_exists:
   - INTERFACE.yaml
   # Special cases: these files should not be user-modified, even though they are in user-modifiable directories
   - "!config/README.md"
-  - "!tests/clio_test.py"
+  - "!tests/integration_test.py"
 _templates_suffix: .jinja
 _answers_file: .copier-answers.yml
 
@@ -67,12 +67,12 @@ github_org:
   type: str
   help: >-
     Please provide the name of the github account or organisation where
-    this module will be created (e.g., 'calliope-project' in 'github.com/calliope-project').
+    this module will be created (e.g., 'modelblocks-org' in 'github.com/modelblocks-org').
   validator: >-
     {% if not (github_org | regex_search('^[a-zA-Z0-9][a-zA-Z0-9-]*$')) %}
     "Only lowercase letters, digits, hyphens and underscores are valid."
     {% endif %}
-  default: "calliope-project"
+  default: "modelblocks-org"
 license:
   type: str
   help: "Please choose a license."

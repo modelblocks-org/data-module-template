@@ -4,5 +4,5 @@ module_description: A simple module to test the template
 author_given_name: Tester
 author_family_name: McTest
 author_email: tester.mctest@example.com
-github_org: calliope-project
+github_org: modelblocks-org
 license:

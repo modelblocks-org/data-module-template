@@ -12,6 +12,7 @@ repos:
       # Repo quality
       - id: check-added-large-files
         args: [--enforce-all]
+        exclude: ^pixi\.lock$
       - id: forbid-submodules
       - id: check-case-conflict
       - id: check-illegal-windows-names
@@ -37,4 +38,4 @@ repos:
     - id: codespell
 
 ci:  # https://pre-commit.ci/
-  autoupdate_schedule: monthly
+  autoupdate_schedule: quarterly

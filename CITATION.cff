@@ -3,8 +3,8 @@
 # https://citation-file-format.github.io/
 cff-version: 1.2.0
 message: If you use this software or data produced by it, please cite it using the metadata from this file.
-title: clio - data module template
-repository: https://github.com/calliope-project/data-module-template
+title: Modelblocks - data module template
+repository: https://github.com/modelblocks-org/data-module-template
 license: Apache-2.0
 authors:
   - given-names: Ivan
