@@ -58,8 +58,8 @@ We require [`pixi`](https://pixi.sh/) as a package manager. Once installed, do t
    copier copy https://github.com/modelblocks-org/data-module-template.git ./<module_name>
    ```
 
-   > [!TIP]
-   > If your terminal does not have access to `copier` then you may need to update your `PATH` variable to include `~/.pixi/bin`.
+> [!TIP]
+> If your terminal does not have access to `copier` then you may need to update your `PATH` variable to include `~/.pixi/bin`.
 
 3. Answer some questions so can we pre-fill licensing, citation files, etc...
 4. Initialise the `pixi` project environment of your new module.
