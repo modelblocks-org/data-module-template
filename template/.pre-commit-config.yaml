@@ -4,7 +4,7 @@ default_language_version:
 repos:
   # Generic 'file quality' testing
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       # Machine-friendliness
       - id: trailing-whitespace
@@ -25,7 +25,7 @@ repos:
 
   # Python file formatting
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.6
+    rev: v0.15.18
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
@@ -33,13 +33,13 @@ repos:
 
   # Snakemake file formatting
   - repo: https://github.com/snakemake/snakefmt
-    rev: v0.10.2
+    rev: v2.0.2
     hooks:
       - id: snakefmt
 
   # Spelling
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.1
+    rev: v2.4.2
     hooks:
       - id: codespell
         files: .*\.(py|smk|md)$|^Snakefile$
