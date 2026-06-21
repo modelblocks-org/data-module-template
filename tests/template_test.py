@@ -31,7 +31,9 @@ class TestBuiltTemplate:
     """Build and check the resulting template."""
 
     @pytest.fixture(scope="class", params=["Apache-2.0"])
-    def template_project(self, request, tmp_path_factory, template_path, simple_answers):
+    def template_project(
+        self, request, tmp_path_factory, template_path, simple_answers
+    ):
         """Run the template in a temporary location, for further testing."""
         path = tmp_path_factory.mktemp(request.param)
         modified_answers = deepcopy(simple_answers)
@@ -43,7 +45,6 @@ class TestBuiltTemplate:
             vcs_ref="HEAD",  # Use the latest version for the test
         )
         return path
-
 
     @pytest.fixture(scope="class")
     def pixi_built(self, template_project):
@@ -57,13 +58,11 @@ class TestBuiltTemplate:
         )
         return template_project
 
-
     def test_pytest(self, pixi_built):
         """The template's tests should pass by default."""
         assert subprocess.run(
             "pixi run test-integration", shell=True, check=True, cwd=pixi_built
         )
-
 
     def test_linting(self, pixi_built):
         """The generated project should result in perfect snakemake linting."""
