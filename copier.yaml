@@ -1,9 +1,9 @@
 # === copier settings ===
-_min_copier_version: '9.4.1'
+_min_copier_version: '9.5.0'
 _subdirectory: template
 _exclude:
     # copier defaults
-    - "copier.yaml"
+    - "copier.yml"
     - "copier.yaml"
     - "~*"
     - "*.py[co]"
@@ -11,13 +11,17 @@ _exclude:
     - ".git"
     - ".DS_Store"
     - ".svn"
-    # Do not add the dummy example when updating
-    - "{% if _copier_operation == 'update' -%}workflow/envs/shell.yaml{% endif %}"
-    - "{% if _copier_operation == 'update' -%}workflow/internal/config.schema.yaml{% endif %}"
-    - "{% if _copier_operation == 'update' -%}workflow/internal/settings.yaml{% endif %}"
-    - "{% if _copier_operation == 'update' -%}workflow/rules/automatic.smk{% endif %}"
-    - "{% if _copier_operation == 'update' -%}workflow/rules/dummy.smk{% endif %}"
-    - "{% if _copier_operation == 'update' -%}workflow/scripts/dummy_script.py{% endif %}"
+    # Respect user-owned files and folders during updates.
+    - "{% if _copier_operation == 'update' -%}workflow{% endif %}"
+    - "{% if _copier_operation == 'update' -%}resources{% endif %}"
+    - "{% if _copier_operation == 'update' -%}figures{% endif %}"
+    - "{% if _copier_operation == 'update' -%}results{% endif %}"
+    - "{% if _copier_operation == 'update' -%}config/**{% endif %}"
+    - "{% if _copier_operation == 'update' -%}tests/**{% endif %}"
+    # Special cases within the above that should not be excluded.
+    - "{% if _copier_operation == 'update' -%}!config/README.md{% endif %}"
+    - "{% if _copier_operation == 'update' -%}!tests/integration_test.py{% endif %}"
+    - "{% if _copier_operation == 'update' -%}!workflow/profiles/default/config.yaml{% endif %}"
 _skip_if_exists:
   # Respect user changes, except for a few standard files.
   - config/**
@@ -26,13 +30,10 @@ _skip_if_exists:
   - results/**
   - tests/**
   - workflow/**
-  - .readthedocs.yaml
-  - AUTHORS
-  - CITATION.cff
-  - INTERFACE.yaml
-  # Special cases: these files should not be user-modified, even though they are in user-modifiable directories
+  # Special cases within the above that should not be skipped.
   - "!config/README.md"
   - "!tests/integration_test.py"
+  - "!workflow/profiles/default/config.yaml"
 _templates_suffix: .jinja
 _answers_file: .copier-answers.yml
 
