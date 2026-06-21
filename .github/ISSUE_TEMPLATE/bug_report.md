@@ -23,9 +23,9 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information):**
+**Environment (please complete the following information):**
  - OS: [e.g. Linux Fedora 43, Windows 11...]
- - Version [e.g. v0.1.1]
+ - Version: [e.g. v0.1.1]
 
 **Additional context**
 Add any other context about the problem here.

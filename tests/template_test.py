@@ -2,6 +2,7 @@
 
 import subprocess
 from copy import deepcopy
+from pathlib import Path
 
 import pytest
 from copier import run_copy
@@ -47,3 +48,22 @@ def test_linting(pixi_built):
     assert subprocess.run(
         "pixi run snakemake --lint", shell=True, check=True, cwd=pixi_built
     )
+
+
+def test_github_issue_templates(template_path: Path, template_project: Path):
+    """The issue templating and configuration should match at both levels."""
+    issue_template_dir = Path(".github/ISSUE_TEMPLATE")
+    repo_path = template_path / issue_template_dir
+    temp_path = template_project / issue_template_dir
+
+    repo_files = sorted(path.relative_to(repo_path) for path in repo_path.iterdir())
+    temp_files = sorted(path.relative_to(temp_path) for path in temp_path.iterdir())
+    assert temp_files == repo_files
+
+    for relative_path in repo_files:
+        repo_file = repo_path / relative_path
+        generated_file = temp_path / relative_path
+
+        assert repo_file.is_file()
+        assert generated_file.is_file()
+        assert generated_file.read_text() == repo_file.read_text()
