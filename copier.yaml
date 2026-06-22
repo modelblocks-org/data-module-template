@@ -1,5 +1,5 @@
 # === copier settings ===
-_min_copier_version: '9.5.0'
+_min_copier_version: '9.15.2'
 _subdirectory: template
 _exclude:
     # copier defaults

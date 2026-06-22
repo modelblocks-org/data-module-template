@@ -1,54 +1,76 @@
-# Adapted from https://github.com/arup-group/actions-city-modelling-lab/blob/main/.github/workflows/template-check.yml
-# MIT licensed
+name: Deprecated reusable workflow for checking template updates
 
-name: Reusable workflow for keeping up-to-date with template changes.
 on:
   workflow_call:
 
 defaults:
   run:
-    shell: bash -l {0}
+    shell: bash --noprofile --norc -euo pipefail {0}
 
 jobs:
-  copier-issue:
+  copier-check-update:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       issues: write
     env:
-      UPDATE: false
+      ISSUE_TITLE: Template update workflow migration required
     steps:
       - uses: actions/checkout@v4
+
+      - name: Warn about deprecated reusable workflow
+        run: |
+          echo "::warning title=Deprecated template check workflow::This reusable workflow and the data-module-template 'latest' tag update mechanism are deprecated. This compatibility workflow will be removed in the next template release. Update this project from the template to use the generated self-contained check-version workflow."
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
 
-      - name: Add dummy GitHub credentials
+      - name: Check for template updates
+        id: copier_check_update
         run: |
-          git config --global user.name Copier update
-          git config --global user.email check@dummy.bot.com
+          update_json="$(uvx --from 'copier>=9.15.2' copier check-update --output-format json)"
+          echo "$update_json"
+          {
+            echo "update_available=$(jq -r '.update_available // false' <<< "$update_json")"
+            echo "current_version=$(jq -r '.current_version // "unknown"' <<< "$update_json")"
+            echo "latest_version=$(jq -r '.latest_version // "unknown"' <<< "$update_json")"
+          } >> "$GITHUB_OUTPUT"
 
-      - name: Run copier update
-        run: uvx copier update --skip-answered --defaults
-
-      - name: Wait a bit for copier cleanups
-        run: sleep 10s
-
-      - name: Display differences
-        run: git status --porcelain
-
-      - name: Set update flag if changes occurred
-        run: test -z "$(git status --porcelain)" || echo "UPDATE=true" >> $GITHUB_ENV
-
-      - name: Show environment variables
+      - name: Check for existing migration issue
+        id: existing_issue
         run: |
-          echo "$UPDATE"
+          issue_count="$(gh issue list \
+            --repo "${{ github.repository }}" \
+            --state open \
+            --search "$ISSUE_TITLE in:title" \
+            --json title \
+            --jq "map(select(.title == \"$ISSUE_TITLE\")) | length")"
+          if [[ "$issue_count" -gt 0 ]]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Open issue
-        if: env.UPDATE == true
+      - name: Open migration issue
+        if: steps.existing_issue.outputs.exists != 'true'
         run: |
-          gh issue --repo ${{ github.repository }} \
-          create --title "Template update" \
-          --body "A new version of the template has been published. Please update this project using \`copier update --skip-answered --defaults\` and review changes. If you need help, refer to the Modelblocks documentation or reach out to the project team."
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "$ISSUE_TITLE" \
+            --body "This project is still using the deprecated reusable Modelblocks template update workflow through the data-module-template \`latest\` tag.
+
+          Template update available: ${{ steps.copier_check_update.outputs.update_available }}
+          Current template version: ${{ steps.copier_check_update.outputs.current_version }}
+          Latest template version: ${{ steps.copier_check_update.outputs.latest_version }}
+
+          Please update this project from the template:
+
+          \`\`\`shell
+          copier update --skip-answered --defaults
+          \`\`\`
+
+          The update will migrate this repository to a self-contained \`.github/workflows/check-version.yml\` workflow. This compatibility workflow will be removed in the next template release."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
