@@ -29,7 +29,8 @@ Looking for general information on Modelblocks or how data modules work?
 > Keep these points in mind.
 >
 > - **Modules do not work like regular `Snakemake` workflows**
->   - Tehy must be tested externally by calling the `module:` command in `Snakemake`, passing resources, and requesting results. Check the pre-made example in `tests/integration` for details.
+>   - They must be tested externally using the `module:` command in `Snakemake`, passing user resources, and requesting specific results.
+Check the pre-made example in `tests/integration` for details.
 >   - Internal access (e.g., calling the `all:` rule) is discouraged, as the module may not have the necessary `resources/` to execute properly.
 > - **Please be sure to maintain the following files to ensure Modelblocks compatibility**
 >   - `INTERFACE.yaml`: a simple description of the module's input/output structure.
