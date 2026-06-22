@@ -47,7 +47,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/annotated-types-0.7.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/cfgv-3.5.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/colorama-0.4.6-pyhd8ed1ab_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/copier-9.14.1-pyhcf101f3_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/copier-9.15.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/distlib-0.4.3-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/dunamai-1.23.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/eval-type-backport-0.2.2-pyhd8ed1ab_0.conda
@@ -90,7 +90,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/annotated-types-0.7.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/cfgv-3.5.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/colorama-0.4.6-pyhd8ed1ab_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/copier-9.14.1-pyhcf101f3_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/copier-9.15.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/distlib-0.4.3-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/dunamai-1.23.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/eval-type-backport-0.2.2-pyhd8ed1ab_0.conda
@@ -161,7 +161,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/annotated-types-0.7.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/cfgv-3.5.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/colorama-0.4.6-pyhd8ed1ab_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/copier-9.14.1-pyhcf101f3_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/copier-9.15.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/distlib-0.4.3-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/dunamai-1.23.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/eval-type-backport-0.2.2-pyhd8ed1ab_0.conda
@@ -670,9 +670,9 @@ packages:
   license_family: BSD
   size: 27011
   timestamp: 1733218222191
-- conda: https://conda.anaconda.org/conda-forge/noarch/copier-9.14.1-pyhcf101f3_0.conda
-  sha256: 93d1b3ba43d15010c95938b491f11d53d058a8466aa11a0a7bb51ae8cf70d3e5
-  md5: b5ddb42e9d800aacf070135d14b9423b
+- conda: https://conda.anaconda.org/conda-forge/noarch/copier-9.15.2-pyhcf101f3_0.conda
+  sha256: 9846978f01b09371e058bb795c73f246d351891871b17f6e5509e9249d947895
+  md5: 7da0d461ad7410ff9fd5607da65cd8ed
   depends:
   - python >=3.10
   - colorama >=0.4.6
@@ -693,8 +693,10 @@ packages:
   - typing_extensions >=4.0.0,<5.0.0
   - python
   license: MIT
-  size: 56002
-  timestamp: 1774962797854
+  license_family: MIT
+  run_exports: {}
+  size: 58647
+  timestamp: 1781335499983
 - conda: https://conda.anaconda.org/conda-forge/noarch/distlib-0.4.3-pyhcf101f3_0.conda
   sha256: e2753997b8bd34205f42be01b8bab8037423dc30c02a1ec12de23e5b4c0b0a2e
   md5: 58638f77697c4f6726753eb8be34818b
