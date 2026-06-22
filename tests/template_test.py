@@ -51,7 +51,6 @@ class TestBuiltTemplate:
             "pixi run snakemake --lint", shell=True, check=True, cwd=pixi_built
         )
 
-
     def test_github_issue_templates(self, template_path: Path, template_project: Path):
         """The issue templating and configuration should match at both levels."""
         issue_template_dir = Path(".github/ISSUE_TEMPLATE")
