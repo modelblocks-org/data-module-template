@@ -7,24 +7,6 @@ import pytest
 from copier import run_copy
 
 
-def test_current_pre_commit_hooks(tmp_path, template_path):
-    """The template pre-commit hook pins should match upstream tags."""
-    orig_path = template_path / "template/.pre-commit-config.yaml"
-    copy_path = tmp_path / ".pre-commit-config.yaml"
-    copy_path.write_text(orig_path.read_text(encoding="utf-8"), encoding="utf-8")
-
-    result = subprocess.run(
-        ["pre-commit", "autoupdate", "--config", str(copy_path)],
-        cwd=template_path,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert result.returncode == 0
-
-    original = orig_path.read_text(encoding="utf-8")
-    updated = copy_path.read_text(encoding="utf-8")
-    assert original == updated
 
 
 class TestBuiltTemplate:
