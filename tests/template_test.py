@@ -7,8 +7,6 @@ import pytest
 from copier import run_copy
 
 
-
-
 class TestBuiltTemplate:
     """Build and check the resulting template."""
 
