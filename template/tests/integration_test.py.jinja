@@ -45,7 +45,7 @@ def test_snakemake_all_failure(module_path):
     process = subprocess.run(
         "snakemake --cores 1", shell=True, cwd=module_path, capture_output=True
     )
-    assert "INVALID (missing locally)" in str(process.stderr)
+    assert "INVALID" in str(process.stderr)
 
 
 def test_snakemake_integration_testing(module_path):

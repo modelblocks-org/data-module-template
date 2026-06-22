@@ -10,11 +10,13 @@ homepage = "https://www.modelblocks.org/"
 
 [dependencies]
 python = ">=3.12"
-copier = ">=9.5.0"
+copier = ">=9.15.2"
 mypy = ">=1.15.0"
 pytest = ">=8.3.5"
 ruff = ">=0.9.9"
 pyyaml = ">=6.0.2"
+pre-commit = ">=4.6.0"
 
 [tasks]
 test = {cmd = "pytest tests/"}
+update-pre-commit = {cmd = "pre-commit autoupdate --config .pre-commit-config.yaml && pre-commit autoupdate --config template/.pre-commit-config.yaml"}
