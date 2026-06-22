@@ -9,8 +9,21 @@
   "imageSize": 100,
   "commit": false,
   "commitConvention": "none",
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "jnnr",
+      "name": "Jann Launer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32454596?v=4",
+      "profile": "https://github.com/jnnr",
+      "contributions": [
+        "ideas",
+        "test",
+        "review"
+      ]
+    }
+  ],
   "contributorsPerLine": 7,
   "linkToUsage": false,
-  "contributorsSortAlphabetically": true
+  "contributorsSortAlphabetically": true,
+  "commitType": "docs"
 }
