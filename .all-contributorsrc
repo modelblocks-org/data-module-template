@@ -31,6 +31,18 @@
         "ideas",
         "doc"
       ]
+    },
+    {
+      "login": "jnnr",
+      "name": "Jann Launer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32454596?v=4",
+      "profile": "https://github.com/jnnr",
+      "contributions": [
+        "ideas",
+        "userTesting",
+        "code",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
