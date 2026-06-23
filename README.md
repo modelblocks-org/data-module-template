@@ -19,7 +19,7 @@ A template for modular data workflows built with [`Snakemake`](https://snakemake
 > [!TIP]
 >
 > Before running your workflow, make sure to export the `module` environment so `Snakemake` can use it.
-> See [the available pixi comands](#pixi-run-export-snakemake-env-module) for more information.
+> See [the available pixi commands](#pixi-run-export-snakemake-env-module) for more information.
 >
 
 - Standardised input-output structure across modules:
