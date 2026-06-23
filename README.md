@@ -2,7 +2,7 @@
 
 A template for modular data workflows built with [`Snakemake`](https://snakemake.readthedocs.io/en/stable/). This template is part of the [Modelblocks](https://www.modelblocks.org/) toolset.
 
-> [!INFO]
+> [!NOTE]
 >
 > Looking for general general information on Modelblocks and modular workflows?
 >
