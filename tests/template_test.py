@@ -37,6 +37,12 @@ class TestBuiltTemplate:
             cwd=template_project,
             check=True,
         )
+        subprocess.run(
+            "pixi run export-snakemake-env module",
+            shell=True,
+            cwd=template_project,
+            check=True,
+        )
         return template_project
 
     def test_pytest(self, pixi_built):

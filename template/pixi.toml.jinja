@@ -22,5 +22,32 @@ snakefmt = ">=0.10.2"
 snakemake-minimal = ">=9.19.0"
 pytz = ">=2026.1.post1"
 
+[feature.module.dependencies]
+curl = ">=8.9.1"
+
+[environments]
+module = { features = ["module"], no-default-feature = true }
+
 [tasks]
 test-integration = {cmd = "pytest tests/integration_test.py"}
+
+{% raw %}
+[tasks.export-snakemake-env]
+description = "Export one Pixi environment as Snakemake-compatible conda files"
+args = ["env", { arg = "outdir", default = "workflow/envs" }]
+depends-on = [
+  { task = "_export-snakemake-pin", args = ["{{ env }}", "win-64", "{{ outdir }}"] },
+  { task = "_export-snakemake-pin", args = ["{{ env }}", "linux-64", "{{ outdir }}"] },
+  { task = "_export-snakemake-pin", args = ["{{ env }}", "osx-arm64", "{{ outdir }}"] },
+]
+cmd = "pixi workspace export conda-environment --environment '{{ env }}' '{{ outdir }}/{{ env }}.yaml'"
+
+[tasks._export-snakemake-pin]
+description = "Export one Pixi environment/platform as a Snakemake-compatible pin file"
+args = ["env", "platform", { arg = "outdir", default = "workflow/envs" }]
+cmd = """
+set -e
+pixi workspace export conda-explicit-spec --environment '{{ env }}' --platform '{{ platform }}' '{{ outdir }}'
+mv '{{ outdir }}/{{ env }}_{{ platform }}_conda_spec.txt' '{{ outdir }}/{{ env }}.{{ platform }}.pin.txt'
+"""
+{% endraw %}

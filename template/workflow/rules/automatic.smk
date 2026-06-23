@@ -11,6 +11,6 @@ rule dummy_download:
     log:
         "<logs>/dummy_download.log",
     conda:
-        "../envs/shell.yaml"
+        "../envs/module.yaml"
     shell:
         'curl -sSLo {output.readme} "{params.url}"'

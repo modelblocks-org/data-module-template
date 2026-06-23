@@ -11,6 +11,6 @@ rule dummy_add_text:
     log:
         "<logs>/dummy_add_text.log",
     conda:
-        "../envs/shell.yaml"
+        "../envs/module.yaml"
     script:
         "../scripts/dummy_script.py"
