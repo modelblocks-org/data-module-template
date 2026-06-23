@@ -2,17 +2,26 @@
 
 A template for modular data workflows built with [`Snakemake`](https://snakemake.readthedocs.io/en/stable/). This template is part of the [Modelblocks](https://www.modelblocks.org/) toolset.
 
-## Learning resources
-
-Looking for general information on Modelblocks or how data modules work?
-
-- Visit the [Modelblocks](https://www.modelblocks.org/) website and read our [documentation and guidelines](https://modelblocks.readthedocs.io/en).
-- Check the auto-generated minimal example. You can find it in `tests/integration/Snakefile`.
-- Read about `Snakemake` modularisation in the [`Snakemake` documentation](https://snakemake.readthedocs.io/en/stable/snakefiles/modularization.html#modules).
+> [!INFO]
+>
+> Looking for general general information on Modelblocks and modular workflows?
+>
+> - Visit the Modelblocks [official website](https://www.modelblocks.org/) and [documentation](https://modelblocks.readthedocs.io/en).
+> - Read about `Snakemake` modularisation in the [`Snakemake` documentation](https://snakemake.readthedocs.io/en/stable/snakefiles/modularization.html#modules).
+>
 
 ## Features
 
-- Standardised layout compliant with the [`Snakemake` workflow catalogue](https://snakemake.github.io/snakemake-workflow-catalog/#) listing requirements, so modules can be included automatically once published. Read more about those requirements [here](https://snakemake.github.io/snakemake-workflow-catalog/docs/catalog.html#standardized-usage-workflows).
+- Stable `Snakemake` development using `pixi`'s lockfile and conda-pinning functionality, with the following environments:
+    - `default`: the development environment, including `Snakemake` and `conda` as dependencies. This is never delivered to module users!
+    - `module`: the environment used by rules in the `Snakemake` workflow. It should only contain minimal dependencies needed by your module's processing steps.
+
+> [!TIP]
+>
+> Before running your workflow, make sure to export the `module` environment so `Snakemake` can use it.
+> See [the available pixi comands](#pixi-run-export-snakemake-env-module) for more information.
+>
+
 - Standardised input-output structure across modules:
   - `resources/`: files needed for the module's processes.
     - `user/`: files that should be provided by users. Document them well!
@@ -22,7 +31,7 @@ Looking for general information on Modelblocks or how data modules work?
   - Continuous Integration (CI) settings, ready for [pre-commit.ci](https://pre-commit.ci/).
   - Contributor recognition via [All Contributors](https://allcontributors.org/en/).
   - GitHub Actions to automate chores during pull requests and releases.
-  - Pre-made `pytest` setup.
+- Fully compliant with the [`Snakemake` workflow catalogue](https://snakemake.github.io/snakemake-workflow-catalog/#) listing requirements, so modules can be included automatically once published. Read more about those requirements [here](https://snakemake.github.io/snakemake-workflow-catalog/docs/catalog.html#standardized-usage-workflows).
 
 > [!IMPORTANT]
 >
@@ -65,7 +74,8 @@ This template uses [`pixi`](https://pixi.sh/) as its package manager. Once insta
 
    ```shell
    cd ./<module_name> # navigate to the new project
-   pixi install --all  # install the project environment
+   pixi install --all  # install the project's environments
+   pixi run export-snakemake-env module  # initialise the Snakemake environment
    ```
 5. Register your project in [pre-commit.ci](https://pre-commit.ci/) and [allcontributors.org](https://allcontributors.org/en/) to benefit from CI and contributor task automation.
 6. Extra: run the auto-generated example module!
@@ -74,6 +84,20 @@ This template uses [`pixi`](https://pixi.sh/) as its package manager. Once insta
    cd tests/integration  # go to the integration test...
    pixi run snakemake --use-conda  # run it!
    ```
+
+## `pixi` task commands
+
+### `pixi run export-snakemake-env module`
+
+Exports the module's environment to `conda`, so `Snakemake` can use it during execution.
+This will generate both a `module.yaml` file and platform-specific spec files for Windows, Linux and macOS (e.g., `module.win-64.pin.txt`).
+
+### `pixi run test-integration`
+
+Run a minimal set of standardised tests to ensure your module complies with Modelblock requirements.
+These are executed by Github's CI during pull requests.
+
+
 
 ## Contributors ✨
 
