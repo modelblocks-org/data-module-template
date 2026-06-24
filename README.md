@@ -19,7 +19,7 @@ A template for modular data workflows built with [`Snakemake`](https://snakemake
 > [!IMPORTANT]
 >
 > All software dependencies should be defined in `pixi.toml`.
-> Before running your module for the first time, use the `export-snakemake-env` pixi command to export the required `Snakemake` environments to `conda`.
+> Before running your module for the first time, use the `export-snakemake-env` pixi command to export the required `Snakemake` environments to `conda`-compatible depency files. This is necessary as long as Snakemake does not directly support the use of pixi.  
 > This must include at least the `module` environment, as well as any additional environments created for this purpose.
 > See the [commands section](#pixi-task-commands) for more information.
 
