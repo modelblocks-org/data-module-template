@@ -45,6 +45,6 @@ rule all:
     log:
         stderr="<logs>/all.stderr",
     conda:
-        "envs/shell.yaml"
+        "envs/module.yaml"
     shell:
         'echo "This workflow must be called as a snakemake module." > {log.stderr}'
