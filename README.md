@@ -16,11 +16,12 @@ A template for modular data workflows built with [`Snakemake`](https://snakemake
     - `default`: the development environment, including `Snakemake` and `conda` as dependencies. This is never delivered to module users!
     - `module`: the environment used by rules in the `Snakemake` workflow. It should only contain minimal dependencies needed by your module's processing steps.
 
-> [!TIP]
+> [!IMPORTANT]
 >
-> Before running your workflow, make sure to export the `module` environment so `Snakemake` can use it.
-> See [the available pixi commands](#pixi-run-export-snakemake-env-module) for more information.
->
+> All software dependencies should be defined in `pixi.toml`.
+> Before running your module for the first time, use the `export-snakemake-env` pixi command to export the required `Snakemake` environments to `conda`.
+> This must include at least the `module` environment, as well as any additional environments created for this purpose.
+> See the [commands section](#pixi-task-commands) for more information.
 
 - Standardised input-output structure across modules:
   - `resources/`: files needed for the module's processes.
@@ -87,16 +88,15 @@ This template uses [`pixi`](https://pixi.sh/) as its package manager. Once insta
 
 ## `pixi` task commands
 
-### `pixi run export-snakemake-env module`
+### `pixi run export-snakemake-env <ENVIRONMENT>`
 
-Exports the module's environment to `conda`, so `Snakemake` can use it during execution.
-This will generate both a `module.yaml` file and platform-specific spec files for Windows, Linux and macOS (e.g., `module.win-64.pin.txt`).
+Export `<ENVIRONMENT>` to `conda`-compatible dependency files, saved in `workflow/envs`, allowing `Snakemake` to use them during rule execution.
+This will generate both an `<ENVIRONMENT>.yaml` file and platform-specific pin files for Windows, Linux and macOS (e.g., `<ENVIRONMENT>.win-64.pin.txt`).
 
 ### `pixi run test-integration`
 
 Run a minimal set of standardised tests to ensure your module complies with Modelblock requirements.
 These are executed by Github's CI during pull requests.
-
 
 
 ## Contributors ✨
