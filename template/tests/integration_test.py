@@ -13,12 +13,6 @@ from clio_tools.data_module import ModuleInterface
 
 
 @pytest.fixture(scope="module")
-def module_path():
-    """Parent directory of the project."""
-    return Path(__file__).parent.parent
-
-
-@pytest.fixture(scope="module")
 def pixi_environments(module_path) -> dict:
     """Pixi environments defined for this project."""
     process = subprocess.run(
@@ -40,7 +34,7 @@ def test_snakemake_environments(
     """All Snakemake environment files should be based on pixi counterparts."""
     env_dir = module_path / "workflow/envs"
     env_files = sorted(env_dir.glob("*.yaml"))
-    assert env_files
+    assert env_files, f"No conda environments found in {module_path}."
 
     for env_file in env_files:
         env_name = env_file.stem
@@ -56,7 +50,8 @@ def test_snakemake_environments(
         assert generated_yaml.read_text() == env_file.read_text()
 
         for platform in pixi_environments[env_name]["platforms"]:
-            assert (env_dir / f"{env_name}.{platform}.pin.txt").exists()
+            pin_file = env_dir / f"{env_name}.{platform}.pin.txt"
+            assert pin_file.exists(), f"{env_name} has no conda pins for {platform}"
 
 
 def test_interface_file(module_path):
