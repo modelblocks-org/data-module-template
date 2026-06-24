@@ -28,9 +28,7 @@ def pixi_environments(module_path) -> dict:
     }
 
 
-def test_snakemake_environments(
-    module_path, pixi_environments, tmp_path
-):
+def test_snakemake_environments(module_path, pixi_environments, tmp_path):
     """All Snakemake environment files should be based on pixi counterparts."""
     env_dir = module_path / "workflow/envs"
     env_files = sorted(env_dir.glob("*.yaml"))
