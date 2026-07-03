@@ -2,6 +2,8 @@ This is the list of contributors for copyright purposes.
 
 This does not necessarily list everyone who has contributed to this software's
 code or documentation. For a full contributor list, see:
-<https://github.com/{{github_org}}/{{module_short_name}}/graphs/contributors>
+<https://github.com/{{github_org}}/{{module_code_name}}/blob/main/.all-contributorsrc>
+<https://github.com/{{github_org}}/{{module_code_name}}/graphs/contributors>
 
-{{author_given_name}} {{author_family_name}}, <{{author_email}}>
+{% for author in authors %}{{ author.given_name }} {{ author.family_name }}, <{{ author.email }}>
+{% endfor %}

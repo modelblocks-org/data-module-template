@@ -38,45 +38,92 @@ _templates_suffix: .jinja
 _answers_file: .copier-answers.yml
 
 # === copier user provided ===
-module_short_name:
+module_code_name:
   type: str
-  help: Please enter your module's short name as used in snakemake (should be in `snake_case`). This will be folder name within which your module lives.
+  help: |
+    Please enter your module's name as used in code in `snake_case`. This will be used for GitHub and Snakemake access.
+    💡 Core modules should start with "module_" as a convention.
+  default: module_
   validator: >-
-    {% if not (module_short_name | regex_search('^[a-z][a-z0-9_]*$')) %}
+    {% if not (module_code_name | regex_search('^[a-z][a-z0-9_]*$')) %}
     "Only lowercase letters, digits and underscores are valid."
     {% endif %}
-module_long_name:
+module_human_name:
   type: str
-  help: Please enter your module's long name (e.g., PV capacity factors, Hydropower, Heat-pump profiles, etc).
+  help: |
+    Please enter your module's human readable name (e.g., PV capacity factors, Hydropower, Heat-pump profiles, etc).
+    💡 This name will be used in the Modelblocks website, citation files and README documentation.
 module_description:
   type: str
-  help: "Please provide a description of your module."
-author_given_name:
-  type: str
-  help: "Please provide your given name (e.g., Ursula)."
-author_family_name:
-  type: str
-  help: "Please provide your family name (e.g., Le Guin)."
-author_email:
-  type: str
-  help: Please provide your email address.
+  help: |
+    Please provide a description of your module.
+    💡 These will be used as the README's introduction.
+authors:
+  type: yaml
+  multiline: true
+  help: |
+    Please provide a list of module authors (i.e., the people that wrote the software).
+    💡 These will be listed in licensing files and referenced when citing the software.
+    💡 Each author needs a given_name, family_name, and email fields.
+    💡 Multiple authors are possible (separate them with '-').
+  default:
+    - given_name: Ursula
+      family_name: Le Guin
+      email: ursula.leguin@example.com
   validator: >-
-    {% if not (author_email | regex_search('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9-.]+$')) %}
-    "Invalid email address."
+    {% if authors is not sequence or authors is string or authors | length == 0 %}
+    Please provide at least one author as a YAML list.
+    {% else %}
+    {% for author in authors %}
+    {% if author is not mapping %}
+    Author {{ loop.index }} must be a mapping with given_name, family_name, and email.
+    {% elif not author.given_name or not author.family_name or not author.email %}
+    Author {{ loop.index }} must include given_name, family_name, and email.
+    {% elif not (author.email | regex_search('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9-.]+$')) %}
+    Invalid email address for author {{ loop.index }}.
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+maintainers:
+  type: yaml
+  multiline: true
+  help: |
+    Please provide the module maintainers (i.e., the people currently responsible for the software).
+    💡 Similar to authors, each needs a given_name, family_name, and email.
+    💡 The same person can be both an author and a maintainer.
+  default:
+    - given_name: Juan
+      family_name: Rulfo
+      email: j.rulfo@example.com
+  validator: >-
+    {% if maintainers is not sequence or maintainers is string or maintainers | length == 0 %}
+    Please provide at least one maintainer as a YAML list.
+    {% else %}
+    {% for maintainer in maintainers %}
+    {% if maintainer is not mapping %}
+    Maintainer {{ loop.index }} must be a mapping with given_name, family_name, and email.
+    {% elif not maintainer.given_name or not maintainer.family_name or not maintainer.email %}
+    Maintainer {{ loop.index }} must include given_name, family_name, and email.
+    {% elif not (maintainer.email | regex_search('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9-.]+$')) %}
+    Invalid email address for maintainer {{ loop.index }}.
+    {% endif %}
+    {% endfor %}
     {% endif %}
 github_org:
   type: str
-  help: >-
-    Please provide the name of the github account or organisation where
-    this module will be created (e.g., 'modelblocks-org' in 'github.com/modelblocks-org').
+  help: |
+    Please provide the name of the github account or organisation where this module will be created.
+    💡 For example: 'modelblocks-org' in 'github.com/modelblocks-org'.
+  default: "modelblocks-org"
   validator: >-
     {% if not (github_org | regex_search('^[a-zA-Z0-9][a-zA-Z0-9-]*$')) %}
     "Only lowercase letters, digits, hyphens and underscores are valid."
     {% endif %}
-  default: "modelblocks-org"
 license:
   type: str
-  help: "Please choose a license."
+  help: |
+    Please choose a license.
+    💡 Core modules must use Apache-2.0 as a standard.
   choices:
     - "Apache-2.0"
     - "MIT"

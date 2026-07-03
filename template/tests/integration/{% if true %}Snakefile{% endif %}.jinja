@@ -21,9 +21,9 @@ rule create_external_input:
 # `snakefile:` specifies the module. It can use file paths and special github(...) / gitlab(...) markers
 # `config`: specifies the module configuration.
 # `pathvars:` helps you re-wire where the module places files.
-module {{module_short_name}}:
+module {{module_code_name}}:
     snakefile: "../../workflow/Snakefile"
-    config: config["{{module_short_name}}"]
+    config: config["{{module_code_name}}"]
     pathvars:
         # Redirect specific user resources (inputs)
         user_message=rules.create_external_input.output.text_file,
@@ -36,7 +36,7 @@ module {{module_short_name}}:
 
 
 # rename all module rules with a prefix, to avoid naming conflicts.
-use rule * from {{module_short_name}} as {{module_short_name}}_*
+use rule * from {{module_code_name}} as {{module_code_name}}_*
 
 # Request something from the module
 rule all:
