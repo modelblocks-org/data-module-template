@@ -1,5 +1,5 @@
-module_short_name: test_module
-module_long_name: Test module
+module_code_name: test_module
+module_human_name: Test module
 module_description: A simple module to test the template
 authors:
   - given_name: Tester

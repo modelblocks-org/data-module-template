@@ -3,8 +3,8 @@
 # https://citation-file-format.github.io/
 cff-version: 1.2.0
 message: If you use this software or data produced by it, please cite it using the metadata from this file.
-title: "Modelblocks - {{module_short_name}}: {{module_long_name}}"
-repository: "https://github.com/{{github_org}}/{{module_short_name}}"
+title: "Modelblocks - {{module_code_name}}: {{module_human_name}}"
+repository: "https://github.com/{{github_org}}/{{module_code_name}}"
 license: {{license}}
 authors:
 {% for author in authors %}  - given-names: {{ author.given_name | tojson }}

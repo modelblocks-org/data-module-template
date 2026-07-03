@@ -38,16 +38,16 @@ _templates_suffix: .jinja
 _answers_file: .copier-answers.yml
 
 # === copier user provided ===
-module_short_name:
+module_code_name:
   type: str
-  help: Please enter your module's short name as used in snakemake (should be in `snake_case`). This will be folder name within which your module lives.
+  help: Please enter your module's name as used in code (should be in `snake_case`). This will be used for GitHub and Snakemake access.
   validator: >-
-    {% if not (module_short_name | regex_search('^[a-z][a-z0-9_]*$')) %}
+    {% if not (module_code_name | regex_search('^[a-z][a-z0-9_]*$')) %}
     "Only lowercase letters, digits and underscores are valid."
     {% endif %}
-module_long_name:
+module_human_name:
   type: str
-  help: Please enter your module's long name (e.g., PV capacity factors, Hydropower, Heat-pump profiles, etc).
+  help: Please enter your module's human readable name (e.g., PV capacity factors, Hydropower, Heat-pump profiles, etc).
 module_description:
   type: str
   help: "Please provide a description of your module."
