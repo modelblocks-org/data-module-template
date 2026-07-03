@@ -45,10 +45,19 @@ class TestBuiltTemplate:
         )
         return template_project
 
-    def test_pytest(self, pixi_built):
+    def test_task_test_integration(self, pixi_built):
         """The template's tests should pass by default."""
         assert subprocess.run(
             "pixi run test-integration", shell=True, check=True, cwd=pixi_built
+        )
+
+    def test_task_export_snakemake_env(self, pixi_built):
+        """The template's export task should work as expected."""
+        assert subprocess.run(
+            "pixi run export-snakemake-env module",
+            shell=True,
+            check=True,
+            cwd=pixi_built,
         )
 
     def test_linting(self, pixi_built):
