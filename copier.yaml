@@ -51,18 +51,56 @@ module_long_name:
 module_description:
   type: str
   help: "Please provide a description of your module."
-author_given_name:
-  type: str
-  help: "Please provide your given name (e.g., Ursula)."
-author_family_name:
-  type: str
-  help: "Please provide your family name (e.g., Le Guin)."
-author_email:
-  type: str
-  help: Please provide your email address.
+authors:
+  type: yaml
+  multiline: true
+  help: |-
+    Please provide a list of module authors (i.e., the people that wrote the software).
+    These will be listed in licensing files and referenced when citing the software.
+
+    Each author needs given_name, family_name, and email fields:
+    - given_name: Ursula
+      family_name: Le Guin
+      email: ursula.leguin@example.com
+
   validator: >-
-    {% if not (author_email | regex_search('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9-.]+$')) %}
-    "Invalid email address."
+    {% if authors is not sequence or authors is string or authors | length == 0 %}
+    Please provide at least one author as a YAML list.
+    {% else %}
+    {% for author in authors %}
+    {% if author is not mapping %}
+    Author {{ loop.index }} must be a mapping with given_name, family_name, and email.
+    {% elif not author.given_name or not author.family_name or not author.email %}
+    Author {{ loop.index }} must include given_name, family_name, and email.
+    {% elif not (author.email | regex_search('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9-.]+$')) %}
+    Invalid email address for author {{ loop.index }}.
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+maintainers:
+  type: yaml
+  multiline: true
+  help: |-
+    Please provide the module maintainers (i.e., the people currently responsible for the software).
+
+    Similar to authors, each needs given_name, family_name, and email:
+    - given_name: Juan
+      family_name: Rulfo
+      email: j.rulfo@example.com
+
+  validator: >-
+    {% if maintainers is not sequence or maintainers is string or maintainers | length == 0 %}
+    Please provide at least one maintainer as a YAML list.
+    {% else %}
+    {% for maintainer in maintainers %}
+    {% if maintainer is not mapping %}
+    Maintainer {{ loop.index }} must be a mapping with given_name, family_name, and email.
+    {% elif not maintainer.given_name or not maintainer.family_name or not maintainer.email %}
+    Maintainer {{ loop.index }} must include given_name, family_name, and email.
+    {% elif not (maintainer.email | regex_search('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9-.]+$')) %}
+    Invalid email address for maintainer {{ loop.index }}.
+    {% endif %}
+    {% endfor %}
     {% endif %}
 github_org:
   type: str

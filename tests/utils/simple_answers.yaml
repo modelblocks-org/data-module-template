@@ -1,8 +1,13 @@
 module_short_name: test_module
 module_long_name: Test module
 module_description: A simple module to test the template
-author_given_name: Tester
-author_family_name: McTest
-author_email: tester.mctest@example.com
+authors:
+  - given_name: Tester
+    family_name: McTest
+    email: tester.mctest@example.com
+maintainers:
+  - given_name: Maintain
+    family_name: McMaintainer
+    email: maintain.mcmaintainer@example.com
 github_org: modelblocks-org
-license:
+license: "Apache-2.0"

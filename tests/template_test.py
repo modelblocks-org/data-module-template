@@ -5,7 +5,81 @@ from copy import deepcopy
 from pathlib import Path
 
 import pytest
+import yaml
 from copier import run_copy
+
+
+class TestTemplateAuthors:
+    """Build and check author metadata rendering."""
+
+    def test_multiple_authors_are_rendered(
+        self, tmp_path, template_path, simple_answers
+    ):
+        """Multiple author answers should render in metadata files."""
+        answers = deepcopy(simple_answers)
+        answers["authors"] = [
+            {
+                "given_name": "Ursula",
+                "family_name": "Le Guin",
+                "email": "ursula.leguin@example.com",
+            },
+            {
+                "given_name": "Stanislaw",
+                "family_name": "Lem",
+                "email": "s.lem@example.com",
+            },
+        ]
+
+        run_copy(
+            src_path=str(template_path),
+            dst_path=str(tmp_path),
+            data=answers,
+            vcs_ref="HEAD",
+        )
+
+        copier_answers = yaml.safe_load((tmp_path / ".copier-answers.yml").read_text())
+        assert copier_answers["authors"] == answers["authors"]
+
+        authors = (tmp_path / "AUTHORS").read_text()
+        assert "Ursula Le Guin, <ursula.leguin@example.com>" in authors
+        assert "Stanislaw Lem, <s.lem@example.com>" in authors
+
+        citation = (tmp_path / "CITATION.cff").read_text()
+        assert 'given-names: "Ursula"' in citation
+        assert 'family-names: "Lem"' in citation
+        assert 'email: "s.lem@example.com"' in citation
+
+
+class TestTemplateMaintainers:
+    """Build and check maintainer answer rendering."""
+
+    def test_multiple_maintainers_are_stored(
+        self, tmp_path, template_path, simple_answers
+    ):
+        """Multiple maintainer answers should be stored for documentation."""
+        answers = deepcopy(simple_answers)
+        answers["maintainers"] = [
+            {
+                "given_name": "Juan",
+                "family_name": "Rulfo",
+                "email": "j.rulfo@example.com",
+            },
+            {
+                "given_name": "Toni",
+                "family_name": "Morrison",
+                "email": "toni.morrison@example.com",
+            },
+        ]
+
+        run_copy(
+            src_path=str(template_path),
+            dst_path=str(tmp_path),
+            data=answers,
+            vcs_ref="HEAD",
+        )
+
+        copier_answers = yaml.safe_load((tmp_path / ".copier-answers.yml").read_text())
+        assert copier_answers["maintainers"] == answers["maintainers"]
 
 
 class TestBuiltTemplate:

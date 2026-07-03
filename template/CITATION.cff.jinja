@@ -7,5 +7,7 @@ title: "Modelblocks - {{module_short_name}}: {{module_long_name}}"
 repository: "https://github.com/{{github_org}}/{{module_short_name}}"
 license: {{license}}
 authors:
-  - given-names: {{author_given_name}}
-    family-names: {{author_family_name}}
+{% for author in authors %}  - given-names: {{ author.given_name | tojson }}
+    family-names: {{ author.family_name | tojson }}
+    email: {{ author.email | tojson }}
+{% endfor %}
