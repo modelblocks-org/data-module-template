@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0
+
+- Change: `tests/` has been separated into `tests/modelblocks` and `tests/unit` (convention and unit testing, respectively).
+    - `tests/integration_test.py` was split into `convention_test.py` (interfacing checks) and `module_integration_test.py` (module export checks).
+- Add: new `unit-test` pixi environment, resolved in tandem with the `module` environment while adding `pytest` to it.
+- Add: new `pixi run test-unit` task for unit testing script code.
+
 ## 0.1.0
 
 ### Added

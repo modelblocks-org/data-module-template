@@ -1,22 +1,15 @@
-"""Set of standard Modelblocks tests.
+"""Test Modelblocks convention compliance.
 
+!!!!! DO NOT ERASE OR MODIFY !!!!!
 PLEASE ENSURE THIS SET OF MINIMAL TESTS WORKS BEFORE PUBLISHING YOUR MODULE.
 Contents may be updated in future template updates.
 """
 
 import subprocess
-import tomllib
 from pathlib import Path
 
 import pytest
 from clio_tools.data_module import ModuleInterface
-
-
-@pytest.fixture(scope="module")
-def pixi_platforms(module_path) -> list[str]:
-    """Pixi platforms defined for this project."""
-    with (module_path / "pixi.toml").open("rb") as pixi_config:
-        return tomllib.load(pixi_config)["workspace"]["platforms"]
 
 
 def test_snakemake_environments(module_path, pixi_platforms, tmp_path):
@@ -57,28 +50,14 @@ def test_interface_file(module_path):
         "LICENSE",
         "README.md",
         "config/config.yaml",
+        "config/README.md",
+        "figures/module.png",
+        "tests/modelblocks/integration/Snakefile",
         "workflow/internal/config.schema.yaml",
-        "tests/integration/Snakefile",
+        ".github/workflows/check-version.yml",
+        ".github/workflows/pr-ci.yml",
     ],
 )
 def test_standard_file_existance(module_path, file):
     """Check that a minimal set of files used for documentation are present."""
     assert Path(module_path / file).exists()
-
-
-def test_snakemake_all_failure(module_path):
-    """The snakemake 'all' rule should return an error by default."""
-    process = subprocess.run(
-        "snakemake --cores 1", shell=True, cwd=module_path, capture_output=True
-    )
-    assert "INVALID" in str(process.stderr)
-
-
-def test_snakemake_integration_testing(module_path):
-    """Run a light-weight test simulating someone using this module."""
-    assert subprocess.run(
-        "snakemake --use-conda --cores 1",
-        shell=True,
-        check=True,
-        cwd=module_path / "tests/integration",
-    )

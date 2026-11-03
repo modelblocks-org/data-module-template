@@ -1,5 +1,6 @@
 """Test a simplified template use-case."""
 
+import json
 import subprocess
 from copy import deepcopy
 from pathlib import Path
@@ -119,11 +120,72 @@ class TestBuiltTemplate:
         )
         return template_project
 
-    def test_task_test_integration(self, pixi_built):
-        """The template's tests should pass by default."""
-        assert subprocess.run(
-            "pixi run test-integration", shell=True, check=True, cwd=pixi_built
+    @pytest.mark.parametrize(
+        ("task", "environment"),
+        [
+            ("test-modelblocks", "default"),
+            ("test-unit", "unit-test"),
+            ("export-snakemake-env", "default"),
+        ],
+        ids=["test-modelblocks", "test-unit", "export-snakemake-env"],
+    )
+    def test_task_environment(self, template_project, task, environment):
+        """Tasks should be available in their intended environment."""
+        process = subprocess.run(
+            [
+                "pixi",
+                "task",
+                "list",
+                "--manifest-path",
+                str(template_project / "pixi.toml"),
+                "--json",
+            ],
+            cwd=template_project,
+            capture_output=True,
+            text=True,
+            check=True,
         )
+        task_environments = set()
+        for environment_info in json.loads(process.stdout):
+            tasks = environment_info["tasks"] + [
+                task_info
+                for feature in environment_info["features"]
+                for task_info in feature["tasks"]
+            ]
+            if any(task_info["name"] == task for task_info in tasks):
+                task_environments.add(environment_info["environment"])
+        assert task_environments == {environment}
+
+    def test_task_test_modelblocks(self, pixi_built):
+        """The template's Modelblock tests should pass by default."""
+        assert subprocess.run(
+            "pixi run test-modelblocks", shell=True, check=True, cwd=pixi_built
+        )
+
+    def test_task_test_unit_default_failure(self, pixi_built):
+        """Unit testing should require tests and fail by default in CI."""
+        process = subprocess.run("pixi run test-unit", shell=True, cwd=pixi_built)
+        assert process.returncode == pytest.ExitCode.NO_TESTS_COLLECTED
+
+    def test_task_test_unit_with_tests(self, pixi_built):
+        """Unit testing should succeed when tests are included by users."""
+        unit_test = pixi_built / "tests/unit/dummy_script_test.py"
+        unit_test.write_text(
+            '"""Example of script function validation."""\n'
+            "\n"
+            "import dummy_script\n"
+            "\n"
+            "\n"
+            "def test_dummy_uppercase():\n"
+            '    """Test the dummy uppercase function."""\n'
+            '    assert dummy_script.dummy_uppercase("modelblocks") == "MODELBLOCKS"\n'
+        )
+        try:
+            assert subprocess.run(
+                "pixi run test-unit", shell=True, check=True, cwd=pixi_built
+            )
+        finally:
+            unit_test.unlink()
 
     def test_task_export_snakemake_env(self, pixi_built):
         """The template's export task should work as expected."""
