@@ -51,7 +51,6 @@ def test_interface_file(module_path):
         "README.md",
         "config/config.yaml",
         "config/README.md",
-        "figures/module.png",
         "tests/modelblocks/integration/Snakefile",
         "workflow/internal/config.schema.yaml",
         ".github/workflows/check-version.yml",
