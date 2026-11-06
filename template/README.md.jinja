@@ -14,7 +14,7 @@
 This is a modular `snakemake` workflow created as part of the [Modelblocks project](https://www.modelblocks.org/). It can be imported directly into any `snakemake` workflow.
 
 For more information, please consult the Modelblocks [documentation](https://modelblocks.readthedocs.io/en/latest/),
-the [integration example](./tests/integration/Snakefile),
+the [integration example](./tests/modelblocks/integration/Snakefile),
 and the `snakemake` [documentation](https://snakemake.readthedocs.io/en/stable/snakefiles/modularization.html).
 
 ## Overview
@@ -65,14 +65,16 @@ pixi run export-snakemake-env module
 For testing, simply run:
 
 ```shell
-pixi run test-integration
+pixi run test-modelblocks  # Modelblocks compatibility
+pixi run test-unit  # Script unit tests
 ```
 
-To test a minimal example of a workflow using this module:
+If you want to run a minimal example of a workflow using this module, do the following.
+Note that this example is also automatically triggered by `pixi run test-modelblocks`.
 
 ```shell
 pixi shell    # activate this project's environment
-cd tests/integration/  # navigate to the integration example
+cd tests/modelblocks/integration/  # navigate to the integration example
 snakemake --use-conda --cores 2  # run the workflow!
 ```
 

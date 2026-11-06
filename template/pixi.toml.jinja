@@ -25,11 +25,18 @@ pytz = ">=2026.1.post1"
 [feature.module.dependencies]
 curl = ">=8.9.1"
 
+[feature.testing.dependencies]
+pytest = ">=8.3.5"
+
+[feature.testing.tasks]
+test-unit = {cmd = "pytest tests/unit/", default-environment = "unit-test"}
+
 [environments]
-module = { features = ["module"], no-default-feature = true }
+module = { features = ["module"], no-default-feature = true, solve-group = "module" }
+unit-test = { features = ["module", "testing"], no-default-feature = true, solve-group = "module" }
 
 [tasks]
-test-integration = {cmd = "pytest tests/integration_test.py"}
+test-modelblocks = {cmd = "pytest tests/modelblocks/", default-environment = "default"}
 
 {% raw %}
 [tasks.export-snakemake-env]

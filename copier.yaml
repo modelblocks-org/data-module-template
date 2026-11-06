@@ -17,10 +17,8 @@ _exclude:
     - "{% if _copier_operation == 'update' -%}figures{% endif %}"
     - "{% if _copier_operation == 'update' -%}results{% endif %}"
     - "{% if _copier_operation == 'update' -%}config/**{% endif %}"
-    - "{% if _copier_operation == 'update' -%}tests/**{% endif %}"
     # Special cases within the above that should not be excluded.
     - "{% if _copier_operation == 'update' -%}!config/README.md{% endif %}"
-    - "{% if _copier_operation == 'update' -%}!tests/integration_test.py{% endif %}"
     - "{% if _copier_operation == 'update' -%}!workflow/profiles/default/config.yaml{% endif %}"
 _skip_if_exists:
   # Respect user changes, except for a few standard files.
@@ -28,14 +26,21 @@ _skip_if_exists:
   - resources/**
   - figures/**
   - results/**
-  - tests/**
+  - tests/unit/**
   - workflow/**
   # Special cases within the above that should not be skipped.
   - "!config/README.md"
-  - "!tests/integration_test.py"
   - "!workflow/profiles/default/config.yaml"
 _templates_suffix: .jinja
 _answers_file: .copier-answers.yml
+_message_after_update: |
+  ⚠️⚠️ IMPORTANT: Integration test layout changed ⚠️⚠️
+
+  Modelblocks integration and compatibility tests now live in tests/modelblocks/.
+  If your project still uses tests/integration/, merge its Snakefile and supporting files into tests/modelblocks/integration/.
+  Adjust relative paths as needed.
+
+  Run pixi run test-modelblocks to validate a successful migration.
 
 # === copier user provided ===
 module_code_name:
