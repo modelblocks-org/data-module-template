@@ -22,7 +22,7 @@ rule create_external_input:
 # `config`: specifies the module configuration.
 # `pathvars:` helps you re-wire where the module places files.
 module {{module_code_name}}:
-    snakefile: "../../workflow/Snakefile"
+    snakefile: "../../../workflow/Snakefile"
     config: config["{{module_code_name}}"]
     pathvars:
         # Redirect specific user resources (inputs)

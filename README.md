@@ -40,7 +40,7 @@ A template for modular data workflows built with [`Snakemake`](https://snakemake
 >
 > - **Modules do not work like regular `Snakemake` workflows**
 >   - They must be tested externally using the `module:` command in `Snakemake`, passing user resources, and requesting specific results.
-Check the pre-made example in `tests/integration` for details.
+Check the pre-made example in `tests/modelblocks/integration` for details.
 >   - Internal access (e.g., calling the `all:` rule) is discouraged, as the module may not have the necessary `resources/` to execute properly.
 > - **Please be sure to maintain the following files to ensure Modelblocks compatibility**
 >   - `INTERFACE.yaml`: a simple description of the module's input/output structure.
@@ -82,7 +82,7 @@ This template uses [`pixi`](https://pixi.sh/) as its package manager. Once insta
 6. Extra: run the auto-generated example module!
 
    ```shell
-   cd tests/integration  # go to the integration test...
+   cd tests/modelblocks/integration  # go to the integration test...
    pixi run snakemake --use-conda  # run it!
    ```
 
@@ -93,10 +93,16 @@ This template uses [`pixi`](https://pixi.sh/) as its package manager. Once insta
 Export `<ENVIRONMENT>` to `conda`-compatible dependency files, saved in `workflow/envs`, allowing `Snakemake` to use them during rule execution.
 This will generate both an `<ENVIRONMENT>.yaml` file and platform-specific pin files for Windows, Linux and macOS (e.g., `<ENVIRONMENT>.win-64.pin.txt`).
 
-### `pixi run test-integration`
+### `pixi run test-modelblocks`
 
 Run a minimal set of standardised tests to ensure your module complies with Modelblock requirements.
-These are executed by Github's CI during pull requests.
+These tests are executed by Github's CI during pull requests.
+
+
+### `pixi run test-unit`
+
+Run unit tests on workflow python code in `workflow/scripts/`, using a separate `unit-test` environment.
+These tests are executed by Github's CI during pull requests.
 
 
 ## Contributors ✨
