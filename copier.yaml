@@ -27,6 +27,7 @@ _skip_if_exists:
   - figures/**
   - results/**
   - tests/unit/**
+  - tests/workflow/**
   - workflow/**
   # Special cases within the above that should not be skipped.
   - "!config/README.md"

@@ -37,6 +37,7 @@ unit-test = { features = ["module", "testing"], no-default-feature = true, solve
 
 [tasks]
 test-modelblocks = {cmd = "pytest tests/modelblocks/", default-environment = "default"}
+test-workflow = {cmd = "pytest tests/workflow/", default-environment = "default"}
 
 {% raw %}
 [tasks.export-snakemake-env]
