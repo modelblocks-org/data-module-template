@@ -5,7 +5,7 @@ These are arranged in three different directories.
 - `modelblocks`: standard tests that every Modelblocks module should have.
   Should be run on the `default` environment.
     - `convention_test.py`: validates the project against the [Modelblocks Convention](https://modelblocks.readthedocs.io/en/stable/).
-      **Developers *shoud not* modify these tests**.
+      **Developers *should not* modify these tests**.
     - `module_integration_test.py`: validates that the `Snakemake` workflow can be exported as a module.
       **Developers should set up a lightweight integration test here.**
 - `unit`: for the development of unit tests of python scripts in `workflow/scripts`.
