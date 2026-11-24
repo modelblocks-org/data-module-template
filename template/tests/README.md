@@ -13,4 +13,4 @@ These are arranged in three different directories.
 
 ## Continuous integration
 
-By default, only `modelblocks` and `unit` are run during Github CI testing during [pull requests](./../.github/workflows/pr-ci.yml). As `workflow` tests are usually computationally more intense, they are not run during CI. 
+By default, only `modelblocks` and `unit` are run during Github CI testing during [pull requests](./../.github/workflows/pr-ci.yml). As `workflow` tests are usually computationally more intense, they are not run during CI.
